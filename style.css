@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+:root {
+    --dark-blue: #1B14DE;
+    --light-blue: #1a81d4;
+    --income:#2fe170;  
+    --expense:#cb2424;   
+    --labels:#6b7280;   
+    --border: rgb(212, 216, 224);  
+    --radius: 16px;     
+    --shadow: 0 4px 24px rgba(0,0,0,0.09);
+}
