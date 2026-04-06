@@ -1,11 +1,171 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 :root {
     --dark-blue: #1B14DE;
-    --light-blue: #1a81d4;
     --income:#2fe170;  
-    --expense:#cb2424;   
-    --labels:#6b7280;   
+    --expense:#e12a2a;   
+    --labels:#6b7280;
+    --almost-white: rgb(248, 248, 248);   
     --border: rgb(212, 216, 224);  
-    --radius: 16px;     
-    --shadow: 0 4px 24px rgba(0,0,0,0.09);
+    --radius: 28px;     
+    --shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 1px 3px rgba(0, 0, 0, 0.08);
 }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+body {
+    background-color: var(--dark-blue);
+    display: flex;
+    justify-content: center;
+    padding: 39px 20px;
+}
+
+.container {
+    background-color: white;
+    border-radius: var(--radius);
+    padding: 36px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: var(--shadow);
+}
+
+.input-form h1{
+    color: var(--dark-blue);
+    text-align: center;
+    font-size: 46px;
+    margin-bottom: 36px;
+    text-shadow: var(--shadow);
+    letter-spacing: -2px;
+
+    
+
+}
+.input-form span{
+    color: var(--income);
+}
+
+.input-form input{
+    background-color: var(--almost-white);
+    font-size: 14px;
+    width: 100%;
+    padding: 16px 16px;
+    margin-bottom: 10px;
+    outline: none;
+    transition: border 0.2s;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+
+
+}
+
+.input-form input:focus {
+    border-color: var(--dark-blue);
+}
+
+.input-form__toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    justify-content: center;
+}
+.toggle-button{
+    color: var(--labels);
+
+    cursor: pointer; 
+    background-color: var(--almost-white); 
+    border: 1px solid var(--border); 
+    border-radius: 8px;
+    font-size: 14px;              
+    transition: all 0.2s;            
+    flex: 1;
+    padding: 19px;
+    color: (--labels);
+    
+}
+.toggle-button:hover {
+    opacity: 0.65;
+}
+
+#income-button.active {
+  background-color: var(--income);
+  color: white;
+  border-color: var(--income);
+} 
+#expense-button.active {
+  background-color: var(--expense);
+  border-color: var(--expense);
+  color: white;
+}
+
+
+#add-button {
+    color: var(--labels);
+    width: 100%;
+    cursor: pointer; 
+    background-color: var(--almost-white);  
+    border: 1px solid var(--border); 
+    border-radius: 8px;
+    font-size: 17px;              
+    transition: all 0.2s;            
+    flex: 1;
+    padding: 19px;
+    color: (--labels);
+    text-transform: uppercase;
+    margin-bottom: 41px;
+}
+#add-button:hover {
+    opacity: 0.65;
+}
+
+.transactions h2{
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    color: var(--labels)
+}
+
+
+
+
+.summary {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+ 
+.summary > div {
+  flex: 1;
+  border: 1px solid var(--label);
+  border-radius: 10px;
+  padding: 14px 10px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  background-color: var(--almost-white);
+}
+ 
+.summary p {
+  font-size: 14px;
+  color: var(--labels);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+ 
+.summary h2 {
+  font-size: 16px;
+  font-weight: 700;
+}
+ 
+.summary__income h2  { 
+    color: var(--income); 
+}
+.summary__expense h2 { 
+    color: var(--expense); 
+}
+
+
+ 
