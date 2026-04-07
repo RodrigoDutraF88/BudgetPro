@@ -19,13 +19,13 @@ const chart = new Chart(ctx, {
     data: {
         labels: ['Income', 'Expenses'],
         datasets: [{
-            data: [0, 0],
+            data: [1.5, 1],
             backgroundColor: ['#2fe170', '#e12a2a'],
-            borderWidth: 0,
+            borderWidth: 3,
         }]
     },
     options: {
-        cutout: '70%',
+        cutout: '66%',
         plugins: {
             legend: {
                 position: 'bottom'

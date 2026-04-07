@@ -14,7 +14,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box ;
     font-family: 'DM Sans', sans-serif;
 }
 
@@ -70,7 +70,7 @@ body {
 .input-form__toggle {
     display: flex;
     gap: 10px;
-    margin-bottom: 16px;
+    margin-bottom:16px;
     justify-content: center;
 }
 .toggle-button{
@@ -92,7 +92,7 @@ body {
 }
 
 #income-button.active {
-  background-color: var(--income);
+  background-color:  var(--income);
   color: white;
   border-color: var(--income);
 } 
@@ -123,13 +123,34 @@ body {
 }
 
 .transactions h2{
+    text-align: center;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing:1px;
     margin-bottom: 15px;
     color: var(--labels)
 }
 
 
+.chart-section {
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+.chart-section h2 {
+    font-size: 17px;
+    text-align: center;
+    text-transform:uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    color: var(--labels);
+
+}
+
+#budget-chart {
+    width: 100% !important;
+    max-height: 220px;
+    min-height: 220px;
+}
 
 
 .summary {
@@ -147,7 +168,6 @@ body {
   box-shadow: var(--shadow);
   background-color: var(--almost-white);
 }
- 
 .summary p {
   font-size: 14px;
   color: var(--labels);
@@ -159,7 +179,6 @@ body {
   font-size: 16px;
   font-weight: 700;
 }
- 
 .summary__income h2  { 
     color: var(--income); 
 }
