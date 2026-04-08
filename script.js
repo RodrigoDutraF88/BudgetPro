@@ -13,6 +13,42 @@ const totalExpenseEl = document.getElementById('total-expense');
 let transactions = []
 let currentType = 'income';
 
+incomeButton.addEventListener('click', function() {
+    currentType = 'income'
+    incomeButton.classList.add('active')
+    expenseButton.classList.remove('active')
+});
+
+expenseButton.addEventListener('click', function() {
+    currentType = 'expense'
+    incomeButton.classList.remove('active')
+    expenseButton.classList.add('active')
+});
+
+function addTransaction() {
+
+
+
+    const description = descriptionInput.ariaValueMax.trim()
+    const amount = parseFloat(parseFloat(amountInput.value).toFixed(2));
+    if (description  === ''|| isNaN(amount) || amount <=0) {
+        alert('Please enter a valid description and amount')
+        return
+    }
+
+    const transaction = {
+        description: description, amount: amount, type: currentType
+    }
+    transactions.push(transaction);
+
+    ////criar funcoes q  atualizar tela
+
+    description.Input.value = '';
+    amountInput.value = ''
+    
+}
+
+
 const ctx = document.getElementById('budget-chart').getContext('2d');
 const chart = new Chart(ctx, {
         type: 'doughnut',
@@ -34,3 +70,8 @@ const chart = new Chart(ctx, {
     }
 
 })
+
+
+
+
+addButton.addEventListener('click' , addTransaction)
