@@ -30,7 +30,7 @@ body {
     border-radius: var(--radius);
     padding: 36px;
     width: 100%;
-    max-width: 500px;
+    max-width: 550px;
     box-shadow: var(--shadow);
 }
 
@@ -38,7 +38,7 @@ body {
     color: var(--dark-blue);
     text-align: center;
     font-size: 46px;
-    margin-bottom: 36px;
+    margin-bottom: 46px;
     text-shadow: var(--shadow);
     letter-spacing: -2px;
 

@@ -4,9 +4,9 @@ const incomeButton = document.getElementById( 'income-button');
 const expenseButton = document.getElementById('expense-button');
 const addButton = document.getElementById('add-button');
 const transactionsList = document.getElementById('transactions-list');
-const balanceEl = document.getElementById('balance');
-const totalIncomeEl = document.getElementById('total-income');
-const totalExpenseEl = document.getElementById('total-expense');
+const balanceDisplay = document.getElementById('balance');
+const totalIncomeDisplay = document.getElementById('total-income');
+const totalExpenseDisplay = document.getElementById('total-expense');
 
 
 
@@ -25,11 +25,63 @@ expenseButton.addEventListener('click', function() {
     expenseButton.classList.add('active')
 });
 
+
+function renderTransactions() {
+    transactionsList.innerHTML = ''
+
+    for(let i= 0; i< transaction.length; i++){
+        const li = document.createElement('li')
+        const sign = transaction[i].type == 'income' ? '+' : '-';
+        li.innerHTML = `
+        <span class="description"> ${transaction[i].description}</span>
+        <span class="amount ${transaction[i].type}"> ${sign}R$${transaction[i].amount}</span>`
+        transactionsList.appendChild(li);
+    }
+
+}
+
+function updateSummary(){
+    let totalIncome = 0
+    let totalExpense = 0
+
+    for(let i = 0;i< transactions.length; i++){
+        if(transactions[i].type == 'income'){
+            totalIncome += transactions[i].amount;
+        }else{
+            totalExpense +=transactions[i].amount;
+        }
+    }
+
+    const balance = totalIncome - totalExpense;
+    totalIncomeDisplay.innerHTML = `$R${totalIncome.toFixed(2)}`
+    totalExpenseDisplay.innerHTML = `R$${totalExpense.toFixed(2)}`
+    balanceDisplay.innerHTML = `R$${balance.toFixed(2)}`
+
+
+}
+    
+
+function updateChart() {
+    let totalIncome = 0
+    let totalExpense = 0
+
+    for(let i = 0;i< transactions.length; i++){
+        if(transactions[i].type == 'income'){
+            totalIncome += transactions[i].amount;
+        }else{
+            totalExpense +=transactions[i].amount;
+        }
+    }
+    chart.data.datasets[0].data = [totalIncome, totalExpense];
+}
+
+
+
 function addTransaction() {
 
 
 
-    const description = descriptionInput.ariaValueMax.trim()
+    const description = descriptionInput.value.trim()
     const amount = parseFloat(parseFloat(amountInput.value).toFixed(2));
     if (description  === ''|| isNaN(amount) || amount <=0) {
         alert('Please enter a valid description and amount')
@@ -41,7 +93,11 @@ function addTransaction() {
     }
     transactions.push(transaction);
 
-    ////criar funcoes q  atualizar tela
+    renderTransactions();
+    updateSummary();
+    updateChart();
+
+
 
     description.Input.value = '';
     amountInput.value = ''
