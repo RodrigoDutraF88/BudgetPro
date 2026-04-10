@@ -40,7 +40,9 @@ function renderTransactions() {
 
 }
 
-function updateSummary(){
+
+
+function updateSummaryAndChart(){
     let totalIncome = 0
     let totalExpense = 0
 
@@ -51,31 +53,14 @@ function updateSummary(){
             totalExpense +=transactions[i].amount;
         }
     }
-
     const balance = totalIncome - totalExpense;
     totalIncomeDisplay.innerHTML = `$R${totalIncome.toFixed(2)}`
     totalExpenseDisplay.innerHTML = `R$${totalExpense.toFixed(2)}`
     balanceDisplay.innerHTML = `R$${balance.toFixed(2)}`
-
-
+    chart.data.datasets[0].data = [totalIncome, totalExpense];
+    chart.update()
 }
     
-
-function updateChart() {
-    let totalIncome = 0
-    let totalExpense = 0
-
-    for(let i = 0;i< transactions.length; i++){
-        if(transactions[i].type == 'income'){
-            totalIncome += transactions[i].amount;
-        }else{
-            totalExpense +=transactions[i].amount;
-        }
-    }
-    chart.data.datasets[0].data = [totalIncome, totalExpense];
-}
-
-
 
 function addTransaction() {
 
@@ -94,8 +79,7 @@ function addTransaction() {
     transactions.push(transaction);
 
     renderTransactions();
-    updateSummary();
-    updateChart();
+    updateSummaryAndChart();
 
 
 
