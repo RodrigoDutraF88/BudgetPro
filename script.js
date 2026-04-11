@@ -29,12 +29,13 @@ expenseButton.addEventListener('click', function() {
 function renderTransactions() {
     transactionsList.innerHTML = ''
 
-    for(let i= 0; i< transaction.length; i++){
+    for(let i= 0; i< transactions.length; i++){
         const li = document.createElement('li')
-        const sign = transaction[i].type == 'income' ? '+' : '-';
+        const sign = transactions[i].type == 'income' ? '+' : '-';
         li.innerHTML = `
-        <span class="description"> ${transaction[i].description}</span>
-        <span class="amount ${transaction[i].type}"> ${sign}R$${transaction[i].amount}</span>`
+        <span class="description"> ${transactions[i].description}</span>
+        <span class="amount ${transactions[i].type}"> ${sign}R$${transactions[i].amount}</span>
+        <button class="delete-button" onclick="deleteTransaction(${i})">✕</button>`
         transactionsList.appendChild(li);
     }
 
@@ -54,13 +55,19 @@ function updateSummaryAndChart(){
         }
     }
     const balance = totalIncome - totalExpense;
-    totalIncomeDisplay.innerHTML = `$R${totalIncome.toFixed(2)}`
+    totalIncomeDisplay.innerHTML = `$R$${totalIncome.toFixed(2)}`
     totalExpenseDisplay.innerHTML = `R$${totalExpense.toFixed(2)}`
     balanceDisplay.innerHTML = `R$${balance.toFixed(2)}`
     chart.data.datasets[0].data = [totalIncome, totalExpense];
     chart.update()
 }
-    
+
+function deleteTransaction(index){
+    transactions.splice(index, 1)
+    renderTransactions()
+    updateSummaryAndChart();
+
+}
 
 function addTransaction() {
 
@@ -83,7 +90,7 @@ function addTransaction() {
 
 
 
-    description.Input.value = '';
+    descriptionInput.value = '';
     amountInput.value = ''
     
 }

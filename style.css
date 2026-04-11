@@ -187,4 +187,25 @@ body {
 }
 
 
- 
+.delete-button {
+    background: none;
+    border: none;
+    color: var(--labels);
+    cursor: pointer;
+    font-size: 15px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.delete-button:hover {
+    background-color: var(--expense);
+    color: white;
+}
+
+#transactions-list li{
+    text-align: center;
+    color: var(--labels);
+    text-transform: uppercase;
+    list-style-type: none;
+}
