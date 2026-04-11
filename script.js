@@ -10,7 +10,7 @@ const totalExpenseDisplay = document.getElementById('total-expense');
 
 
 
-let transactions = []
+let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let currentType = 'income';
 
 incomeButton.addEventListener('click', function() {
@@ -54,7 +54,14 @@ function updateSummaryAndChart(){
             totalExpense +=transactions[i].amount;
         }
     }
+
+    
     const balance = totalIncome - totalExpense;
+      if ( balance < 0){
+        balanceDisplay.classList.add("negative");
+    }else{
+        balanceDisplay.classList.remove("negative");
+    }
     totalIncomeDisplay.innerHTML = `$R$${totalIncome.toFixed(2)}`
     totalExpenseDisplay.innerHTML = `R$${totalExpense.toFixed(2)}`
     balanceDisplay.innerHTML = `R$${balance.toFixed(2)}`
@@ -64,9 +71,14 @@ function updateSummaryAndChart(){
 
 function deleteTransaction(index){
     transactions.splice(index, 1)
+    saveTransactions();
     renderTransactions()
     updateSummaryAndChart();
 
+}
+
+function saveTransactions(){
+    localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
 function addTransaction() {
@@ -85,6 +97,7 @@ function addTransaction() {
     }
     transactions.push(transaction);
 
+    saveTransactions();
     renderTransactions();
     updateSummaryAndChart();
 
@@ -122,3 +135,5 @@ const chart = new Chart(ctx, {
 
 
 addButton.addEventListener('click' , addTransaction)
+renderTransactions()
+updateSummaryAndChart()

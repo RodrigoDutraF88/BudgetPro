@@ -185,6 +185,9 @@ body {
 .summary__expense h2 { 
     color: var(--expense); 
 }
+.summary__balance h2.negative{
+    color: var(--expense);
+}
 
 
 .delete-button {
