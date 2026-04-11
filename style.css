@@ -34,11 +34,38 @@ body {
     box-shadow: var(--shadow);
 }
 
+.currency-toggle{
+    display:flex;
+    justify-content: center;
+    margin-bottom: 28px;
+    gap: 5px;
+
+}
+.currency-button {
+    color: var(--labels);
+    cursor: pointer; 
+    background-color: var(--almost-white); 
+    border: 1px solid var(--border); 
+    border-radius: 8px;
+    font-size: 14px; 
+    padding: 5px;             
+    transition: all 0.2s;            
+
+}
+.currency-button.active{
+    background-color:  var(--dark-blue);
+    color: white;
+    
+}
+.currency-button:hover{
+    opacity: 0.85;
+}
+
 .input-form h1{
     color: var(--dark-blue);
     text-align: center;
     font-size: 46px;
-    margin-bottom: 46px;
+    margin-bottom: 36px;
     text-shadow: var(--shadow);
     letter-spacing: -2px;
 
@@ -88,18 +115,21 @@ body {
     
 }
 .toggle-button:hover {
+    transform: scale(1.03);
     opacity: 0.85;
 }
 
 #income-button.active {
-  background-color:  var(--income);
-  color: white;
-  border-color: var(--income);
+    transform: scale(0.97);
+    background-color:  var(--income);
+    color: white;
+    border-color: var(--income);
 } 
 #expense-button.active {
-  background-color: var(--expense);
-  border-color: var(--expense);
-  color: white;
+    transform: scale(0.97);
+    background-color: var(--expense);
+    border-color: var(--expense);
+    color: white;
 }
 
 
@@ -117,18 +147,52 @@ body {
     color: (--labels);
     text-transform: uppercase;
     margin-bottom: 41px;
+    
 }
 #add-button:hover {
+    transform: scale(1.03);
+    color: white;
     opacity: 0.85;
+    background-color: var(--dark-blue);
+}
+#add-button:active{
+    transform: scale(0.97);
 }
 
-.transactions h2{
+.transactions {
     text-align: center;
     text-transform: uppercase;
     letter-spacing:1px;
     margin-bottom: 15px;
     color: var(--labels)
 }
+.transactions h2{
+    margin-bottom: 15px;
+}
+#sort-select {
+    font-size: 17px;
+    color: var(--labels);
+    background-color: var(--almost-white);
+    border: var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    outline: none;
+    box-shadow: var(--shadow);
+    margin-bottom: 13px;
+}
+#sort-select:hover{
+    opacity: 0.85;
+}
+
+#transactions-list li{
+    text-align: center;
+    color: var(--labels);
+    text-transform: uppercase;
+    list-style-type: none;
+}
+
+
 
 
 .chart-section {
@@ -188,6 +252,9 @@ body {
 .summary__balance h2.negative{
     color: var(--expense);
 }
+.summary > div:hover{
+    transform: scale(1.03);
+}
 
 
 .delete-button {
@@ -206,9 +273,3 @@ body {
     color: white;
 }
 
-#transactions-list li{
-    text-align: center;
-    color: var(--labels);
-    text-transform: uppercase;
-    list-style-type: none;
-}

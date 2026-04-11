@@ -12,6 +12,13 @@
     <div class="container">
         <div class="input-form">
             <h1>Budget<span>Pro</span></h1>
+
+            <div class="currency-toggle">
+                <button id="brasil" class="currency-button active">R$</button>
+                <button id="usa" class="currency-button">USD$</button>
+
+            </div>
+
             <input type="text" id="description" placeholder="Description (ex: Rent, Salary)">
             <input type="number" id="amount" placeholder="Amount (ex: 100)">
 
@@ -24,7 +31,18 @@
         </div>
 
         <div class="transactions">
-            <h2>Transactions</h2>
+            <div class="transaction-header">
+                <h2>Transactions</h2>
+                <select id="sort-select">
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                    <option value="highest">Highest</option>
+                    <option value="lowest">Lowest</option>
+                
+                
+                </select>
+
+            </div>
             <ul id="transactions-list">
                 <li>No transactions yet</li>
             </ul>

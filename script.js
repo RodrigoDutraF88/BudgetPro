@@ -62,7 +62,7 @@ function updateSummaryAndChart(){
     }else{
         balanceDisplay.classList.remove("negative");
     }
-    totalIncomeDisplay.innerHTML = `$R$${totalIncome.toFixed(2)}`
+    totalIncomeDisplay.innerHTML = `R$${totalIncome.toFixed(2)}`
     totalExpenseDisplay.innerHTML = `R$${totalExpense.toFixed(2)}`
     balanceDisplay.innerHTML = `R$${balance.toFixed(2)}`
     chart.data.datasets[0].data = [totalIncome, totalExpense];
@@ -117,11 +117,13 @@ const chart = new Chart(ctx, {
         datasets: [{
             data: [1.5, 1],
             backgroundColor: ['#2fe170', '#e12a2a'],
-            borderWidth: 3,
+            borderWidth: 0,
+            hoverOffset: 10,
         }]
     },
     options: {
-        cutout: '66%',
+        cutout: '72%',
+        animation: { animateRotate:true, duration: 2000, easing: 'easeInOutCubic'},
         plugins: {
             legend: {
                 position: 'bottom'
