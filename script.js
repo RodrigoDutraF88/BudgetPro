@@ -87,7 +87,7 @@ function renderTransactions() {
         const sign = sorted[i].type == 'income' ? '+' : '-';
         li.innerHTML = `
         <span class="description"> ${sorted[i].description}</span>
-        <span class="amount ${sorted[i].type}"> ${sign}R$${sorted[i].amount}</span>
+        <span class="amount ${sorted[i].type}"> ${sign}${currentCurrency}${sorted[i].amount}</span>
         <button class="delete-button" onclick="deleteTransaction('${sorted[i].date}')">✕</button>`
         transactionsList.appendChild(li);
     }
@@ -125,7 +125,7 @@ function updateSummaryAndChart(){
 }
 
 function deleteTransaction(date){
-    transactions.filter(transaction=> transaction.date !== date)
+    transactions = transactions.filter(t=> t.date !== Number(date))
     
     saveTransactions();
     renderTransactions()
@@ -198,3 +198,4 @@ if(currentCurrency === '$'){
 addButton.addEventListener('click' , addTransaction)
 renderTransactions()
 updateSummaryAndChart()
+
