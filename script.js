@@ -86,7 +86,7 @@ function renderTransactions() {
         const li = document.createElement('li')
         const sign = sorted[i].type == 'income' ? '+' : '-';
         li.innerHTML = `
-        <span class="description"> ${sorted[i].description}</span>
+        <span class="description ${sorted[i].type}"> ${sorted[i].description}</span>
         <span class="amount ${sorted[i].type}"> ${sign}${currentCurrency}${sorted[i].amount}</span>
         <button class="delete-button" onclick="deleteTransaction('${sorted[i].date}')">✕</button>`
         transactionsList.appendChild(li);

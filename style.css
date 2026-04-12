@@ -46,23 +46,26 @@ body {
     cursor: pointer; 
     background-color: var(--almost-white); 
     border: 1px solid var(--border); 
-    border-radius: 8px;
+    border-radius: 20px;
     font-size: 14px; 
-    padding: 5px;             
+    padding: 8px 17px;             
     transition: all 0.2s;            
 
 }
 #brasil.active{
+    transform: scale(0.97);
     background-color:  var(--dark-blue);
     color: white;
     
 }
 #usa.active{
+    transform: scale(0.97);
     background-color:  var(--dark-blue);
     color: white;
     
 }
 .currency-button:hover{
+    transform: scale(1.03);
     opacity: 0.85;
 }
 
@@ -165,15 +168,48 @@ body {
 }
 
 .transactions {
-    text-align: center;
-    text-transform: uppercase;
     letter-spacing:1px;
     margin-bottom: 15px;
     color: var(--labels)
 }
+.transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
 .transactions h2{
     margin-bottom: 15px;
 }
+#transactions-list li{
+    display: flex;
+    justify-content: space-between;
+    color: var(--labels);
+  
+  
+}
+
+
+#transactions-list li span.description::before {
+  content: "";
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-right: 9px;
+  vertical-align: middle;
+}
+
+#transactions-list li span.description.income::before {
+  background-color: var(--income);
+}
+#transactions-list li span.description.expense::before {
+  background-color: var(--expense);
+}
+
+
 #sort-select {
     font-size: 17px;
     color: var(--labels);
@@ -189,16 +225,6 @@ body {
 #sort-select:hover{
     opacity: 0.85;
 }
-
-#transactions-list li{
-    text-align: center;
-    color: var(--labels);
-    text-transform: uppercase;
-    list-style-type: none;
-}
-
-
-
 
 .chart-section {
     margin-top: 24px;
