@@ -52,7 +52,12 @@ body {
     transition: all 0.2s;            
 
 }
-.currency-button.active{
+#brasil.active{
+    background-color:  var(--dark-blue);
+    color: white;
+    
+}
+#usa.active{
     background-color:  var(--dark-blue);
     color: white;
     

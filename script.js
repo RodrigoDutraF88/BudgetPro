@@ -8,10 +8,37 @@ const balanceDisplay = document.getElementById('balance');
 const totalIncomeDisplay = document.getElementById('total-income');
 const totalExpenseDisplay = document.getElementById('total-expense');
 
-
+const buttonReais = document.getElementById('brasil');
+const buttonDollar = document.getElementById('usa');
+const sortSelect = document.getElementById('sort-select');
 
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let currentType = 'income';
+let currentCurrency = localStorage.getItem('currency') || 'R$';
+
+buttonReais.addEventListener('click', function(){
+    currentCurrency = 'R$'
+    localStorage.setItem('currency', 'R$')
+    buttonReais.classList.add('active');
+    buttonDollar.classList.remove('active');
+    renderTransactions();
+    updateSummaryAndChart();
+});
+
+buttonDollar.addEventListener('click', function(){
+    currentCurrency = '$'
+    localStorage.setItem('currency', '$')
+    buttonReais.classList.remove('active');
+    buttonDollar.classList.add('active');
+    renderTransactions();
+    updateSummaryAndChart();
+});
+
+sortSelect.addEventListener('change', function() {
+    renderTransactions();
+});
+
+
 
 incomeButton.addEventListener('click', function() {
     currentType = 'income'
@@ -26,20 +53,48 @@ expenseButton.addEventListener('click', function() {
 });
 
 
+function getSortedTransactions() {
+    const sorted= [...transactions];
+    const value= sortSelect.value
+    switch(value){
+        case 'newest':
+            sorted.sort((a,b) => b.date - a.date)
+            return sorted
+        case 'oldest':
+            sorted.sort((a,b) => a.date - b.date)
+            return sorted
+        case 'highest':
+            sorted.sort((a,b) => b.amount - a.amount)
+            return sorted
+        case 'lowest':
+            sorted.sort((a,b) => a.amount - b.amount)
+            return sorted
+
+    }
+}
+
+
 function renderTransactions() {
     transactionsList.innerHTML = ''
 
-    for(let i= 0; i< transactions.length; i++){
+    if(transactions.length ===0){
+        transactionsList.innerHTML ='<li>No transactions yet</li>';
+        return
+    }
+    const sorted = getSortedTransactions();
+    for(let i= 0; i< sorted.length; i++){
         const li = document.createElement('li')
-        const sign = transactions[i].type == 'income' ? '+' : '-';
+        const sign = sorted[i].type == 'income' ? '+' : '-';
         li.innerHTML = `
-        <span class="description"> ${transactions[i].description}</span>
-        <span class="amount ${transactions[i].type}"> ${sign}R$${transactions[i].amount}</span>
-        <button class="delete-button" onclick="deleteTransaction(${i})">✕</button>`
+        <span class="description"> ${sorted[i].description}</span>
+        <span class="amount ${sorted[i].type}"> ${sign}R$${sorted[i].amount}</span>
+        <button class="delete-button" onclick="deleteTransaction('${sorted[i].date}')">✕</button>`
         transactionsList.appendChild(li);
     }
 
 }
+
+
 
 
 
@@ -62,15 +117,16 @@ function updateSummaryAndChart(){
     }else{
         balanceDisplay.classList.remove("negative");
     }
-    totalIncomeDisplay.innerHTML = `R$${totalIncome.toFixed(2)}`
-    totalExpenseDisplay.innerHTML = `R$${totalExpense.toFixed(2)}`
-    balanceDisplay.innerHTML = `R$${balance.toFixed(2)}`
+    totalIncomeDisplay.innerHTML = `${currentCurrency}${totalIncome.toFixed(2)}`
+    totalExpenseDisplay.innerHTML = `${currentCurrency}${totalExpense.toFixed(2)}`
+    balanceDisplay.innerHTML = `${currentCurrency}${balance.toFixed(2)}`
     chart.data.datasets[0].data = [totalIncome, totalExpense];
     chart.update()
 }
 
-function deleteTransaction(index){
-    transactions.splice(index, 1)
+function deleteTransaction(date){
+    transactions.filter(transaction=> transaction.date !== date)
+    
     saveTransactions();
     renderTransactions()
     updateSummaryAndChart();
@@ -93,7 +149,7 @@ function addTransaction() {
     }
 
     const transaction = {
-        description: description, amount: amount, type: currentType
+        description: description, amount: amount, type: currentType, date: Date.now()
     }
     transactions.push(transaction);
 
@@ -134,7 +190,10 @@ const chart = new Chart(ctx, {
 })
 
 
-
+if(currentCurrency === '$'){
+    buttonDollar.classList.add('active')
+    buttonReais.classList.remove('active')
+}
 
 addButton.addEventListener('click' , addTransaction)
 renderTransactions()
