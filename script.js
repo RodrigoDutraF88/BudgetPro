@@ -14,6 +14,8 @@ const buttonReais = document.getElementById('brasil');
 const buttonDollar = document.getElementById('usa');
 const sortSelect = document.getElementById('sort-select');
 
+const exportCSV = document.getElementById('export');
+
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let currentType = 'income';
 let currentCurrency = localStorage.getItem('currency') || 'R$';
@@ -123,12 +125,6 @@ function renderTransactions() {
     }
 
 }
-
-
-
-
-
-
 function updateSummaryAndChart(){
     let totalIncome = 0
     let totalExpense = 0
@@ -226,6 +222,36 @@ if(currentCurrency === '$'){
     buttonReais.classList.remove('active')
 }
 
+
+function exportToCSV() {
+    if (transactions.length === 0) {
+        alert('No transactions to export')
+        return
+    }
+    const header ='Description,Amount,Type,Date';
+    const rows = [];
+    for (let i =0; i < transactions.length;i++) {
+        const t = transactions[i];
+        const description = t.description
+        const amount = getDisplayAmount(t.amount)
+        const type = t.type
+        const date = new Date(t.date).toLocaleDateString('pt-Br', { month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
+        rows.push(`${description},${amount},${type},${date}`);
+    }
+    const csvContent = header + '\n' + rows.join('\n')
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `budgetpro-transactions-${new Date().toLocaleDateString('pt-Br')}.csv`;
+    a.click()
+    URL.revokeObjectURL(url);
+}
+
+exportCSV.addEventListener('click', exportToCSV);
 addButton.addEventListener('click' , addTransaction)
 renderTransactions()
 updateSummaryAndChart()

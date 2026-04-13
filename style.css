@@ -324,3 +324,21 @@ body {
     color: white;
 }
 
+#export {
+    font-size: 17px;
+    color: var(--labels);
+    background-color: var(--almost-white);
+    border: var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    outline: none;
+    box-shadow: var(--shadow);
+    margin-bottom: 13px;
+}
+#export:hover{
+    opacity: 0.85;
+}
+#export:active {
+    transform: scale(0.97);
+}
