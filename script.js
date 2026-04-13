@@ -7,6 +7,8 @@ const transactionsList = document.getElementById('transactions-list');
 const balanceDisplay = document.getElementById('balance');
 const totalIncomeDisplay = document.getElementById('total-income');
 const totalExpenseDisplay = document.getElementById('total-expense');
+const rateDisplay = document.getElementById('rate-display');
+let exchangeRate = 0.18;
 
 const buttonReais = document.getElementById('brasil');
 const buttonDollar = document.getElementById('usa');
@@ -16,11 +18,24 @@ let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let currentType = 'income';
 let currentCurrency = localStorage.getItem('currency') || 'R$';
 
+async function fetchExchangeRate() {
+    try {
+        const response = await fetch('https://api.frankfurter.dev/v2/rate/BRL/USD');
+        const data = await response.json();
+        exchangeRate = data.rate;
+        rateDisplay.textContent = `1 BRL = ${exchangeRate.toFixed(4)}USD`;
+    } catch (error) {
+        rateDisplay.textContent = 'Rate unavailable, using estimate';
+        console.log('Exchange rate fetch failed:', error);
+    }
+}
+
 buttonReais.addEventListener('click', function(){
     currentCurrency = 'R$'
     localStorage.setItem('currency', 'R$')
     buttonReais.classList.add('active');
     buttonDollar.classList.remove('active');
+    rateDisplay.textContent = `1 BRL = ${exchangeRate.toFixed(4)} USD`;
     renderTransactions();
     updateSummaryAndChart();
 });
@@ -30,6 +45,7 @@ buttonDollar.addEventListener('click', function(){
     localStorage.setItem('currency', '$')
     buttonReais.classList.remove('active');
     buttonDollar.classList.add('active');
+    rateDisplay.textContent = `1 BRL = ${exchangeRate.toFixed(4)} USD`;
     renderTransactions();
     updateSummaryAndChart();
 });
@@ -73,6 +89,12 @@ function getSortedTransactions() {
     }
 }
 
+function getDisplayAmount(amount){
+    if (currentCurrency ==='$'){
+        return (amount * exchangeRate).toFixed(2)
+    } return amount.toFixed(2);
+}
+
 
 function renderTransactions() {
     transactionsList.innerHTML = ''
@@ -81,18 +103,27 @@ function renderTransactions() {
         transactionsList.innerHTML ='<li>No transactions yet</li>';
         return
     }
+    
     const sorted = getSortedTransactions();
     for(let i= 0; i< sorted.length; i++){
         const li = document.createElement('li')
         const sign = sorted[i].type == 'income' ? '+' : '-';
+        
+        const date = new Date(sorted[i].date);
+        const dateFormatted = date.toLocaleDateString('pt-Br', { 
+        month: 'short', 
+        day: 'numeric' 
+        });
         li.innerHTML = `
         <span class="description ${sorted[i].type}"> ${sorted[i].description}</span>
-        <span class="amount ${sorted[i].type}"> ${sign}${currentCurrency}${sorted[i].amount}</span>
+        <span class="date">${dateFormatted}</span>
+        <span class="amount ${sorted[i].type}"> ${sign}${currentCurrency}${getDisplayAmount(sorted[i].amount)}</span>
         <button class="delete-button" onclick="deleteTransaction('${sorted[i].date}')">✕</button>`
         transactionsList.appendChild(li);
     }
 
 }
+
 
 
 
@@ -117,9 +148,9 @@ function updateSummaryAndChart(){
     }else{
         balanceDisplay.classList.remove("negative");
     }
-    totalIncomeDisplay.innerHTML = `${currentCurrency}${totalIncome.toFixed(2)}`
-    totalExpenseDisplay.innerHTML = `${currentCurrency}${totalExpense.toFixed(2)}`
-    balanceDisplay.innerHTML = `${currentCurrency}${balance.toFixed(2)}`
+    totalIncomeDisplay.innerHTML = `${currentCurrency}${getDisplayAmount(totalIncome)}`
+    totalExpenseDisplay.innerHTML = `${currentCurrency}${getDisplayAmount(totalExpense)}`
+    balanceDisplay.innerHTML = `${currentCurrency}${getDisplayAmount(balance)}`
     chart.data.datasets[0].data = [totalIncome, totalExpense];
     chart.update()
 }
@@ -198,4 +229,5 @@ if(currentCurrency === '$'){
 addButton.addEventListener('click' , addTransaction)
 renderTransactions()
 updateSummaryAndChart()
+fetchExchangeRate()
 
