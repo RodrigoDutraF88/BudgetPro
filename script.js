@@ -20,6 +20,26 @@ let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let currentType = 'income';
 let currentCurrency = localStorage.getItem('currency') || 'R$';
 
+
+const todayDate = document.getElementById('today-date');
+if (todayDate) {
+    
+    if(currentCurrency=== 'R$'){
+        todayDate.textContent = new Date().toLocaleDateString('pt-Br', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric'
+        });       
+    } else{
+            todayDate.textContent = new Date().toLocaleDateString('en-Us', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric'
+        });
+    }
+}
+
+
 async function fetchExchangeRate() {
     try {
         const response = await fetch('https://api.frankfurter.dev/v2/rate/BRL/USD');
@@ -250,6 +270,8 @@ function exportToCSV() {
     a.click()
     URL.revokeObjectURL(url);
 }
+
+
 
 exportCSV.addEventListener('click', exportToCSV);
 addButton.addEventListener('click' , addTransaction)

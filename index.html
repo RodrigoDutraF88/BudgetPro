@@ -5,79 +5,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>Budget App</title>
-    
+    <title>BudgetPro</title>
 </head>
 <body>
-    <div class="container">
-        <div class="input-form">
-            <h1>Budget<span>Pro</span></h1>
 
-            <div class="currency-toggle">
-                <button id="brasil" class="currency-button active">R$</button>
-                <button id="usa" class="currency-button">US$</button>
-                
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+            <div class="sidebar__logo">
+                <span class="logo-text">Budget<span class="logo-accent">Pro</span></span>
+            </div>
+
+            <div class="sidebar__currency">
+                <p class="sidebar__label">Currency</p>
+                <div class="currency-toggle">
+                    <button id="brasil" class="currency-button active">R$</button>
+                    <button id="usa" class="currency-button">US$</button>
+                </div>
+                <p id="rate-display" class="rate-display"></p>
+            </div>
+
+            <div class="sidebar__form">
+                <p class="sidebar__label">New Transaction</p>
+                <input type="text" id="description" placeholder="Description">
+                <input type="number" id="amount" placeholder="Amount">
+
+                <div class="input-form__toggle">
+                    <button id="income-button" class="toggle-button active">Income</button>
+                    <button id="expense-button" class="toggle-button">Expense</button>
+                </div>
+
+                <button id="add-button">Add Transaction</button>
+            </div>
+
+            <div class="sidebar__footer">
+                <p>Feito por RodrigoDutraF88<br>Made by RodrigoDutraF88</p>
+            </div>
+
+        </aside>
+
+        <main class="main">
+
+            <div class="topbar">
+                <h2 class="topbar__title">Dashboard</h2>
+                <p class="topbar__date" id="today-date"></p>
+            </div>
+
+
+            <div class="summary">
+
+                <div class="summary__card summary__card--balance">
+                    <p class="summary__label">Balance</p>
+                    <h2 class="summary__value" id="balance">R$0.00</h2>         
+                </div>
+
+                <div class="summary__card summary__card--income">
+                    <p class="summary__label">Income</p>
+                    <h2 class="summary__value" id="total-income">R$0.00</h2>
+                </div>
+
+                <div class="summary__card summary__card--expense">
+                    <p class="summary__label">Expenses</p>
+                    <h2 class="summary__value" id="total-expense">R$0.00</h2>
+                </div>
 
             </div>
-            <p id="rate-display" class="rate-display"></p>
 
-            <input type="text" id="description" placeholder="Description (ex: Rent, Salary)">
-            <input type="number" id="amount" placeholder="Amount (ex: 100)">
 
-            <div class="input-form__toggle">
-                <button id="income-button" class="toggle-button active">Income</button>
-                <button id="expense-button" class="toggle-button">Expense</button>
+
+            <div class="content-grid">
+
+                <div class="chart">
+
+                    <h3 class="section-title">Income vs Expenses</h3>
+
+                    <canvas id="budget-chart"></canvas>
+                </div>
+
+                <div class="transactions">
+
+                    <div class="transaction-header">
+                        <h3 class="section-title">Transactions</h3>
+                        <div class="transaction-controls">
+
+                            <select id="sort-select">
+
+                                <option value="newest">Newest</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="highest">Highest</option>
+                                <option value="lowest">Lowest</option>
+                            </select>
+
+                            <button id="export">Export CSV</button>
+                        </div>
+                        
+                    </div>
+                    <ul id="transactions-list"></ul>
+                </div>
+
             </div>
-            <button id="add-button">Add Transaction</button>
-
-        </div>
-
-        <div class="transactions">
-            <div class="transaction-header">
-                <h2>Transactions</h2>
-                <select id="sort-select">
-                    <option value="newest">Newest</option>
-                    <option value="oldest">Oldest</option>
-                    <option value="highest">Highest</option>
-                    <option value="lowest">Lowest</option>
-                
-                
-                </select>
-
-            </div>
-            <button id="export">Export CSV</button>
-            <ul id="transactions-list">
-            </ul>
-        </div>
-
-        <div class="chart-section">
-            <h2>Income vs Expenses</h2>
-            <canvas id="budget-chart"></canvas>
-        </div>
-
-
-        <div class="summary">
-            <div class="summary__balance">
-                <p>Balance</p>
-                <h2 id="balance">R$0.00</h2>
-            </div>
-            <div class="summary__income">
-                <p>Income</p>
-                <h2 id="total-income">R$0.00</h2>
-            </div>
-            <div class="summary__expense">
-                <p>Expenses</p>
-                <h2 id="total-expense">R$0.00</h2>
-            </div>
-        </div>
-
-
-
-
-
-
+        </main>
     </div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="script.js"></script>  
+<script src="script.js"></script>
 </body>
 </html>
