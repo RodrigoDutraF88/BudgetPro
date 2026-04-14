@@ -21,22 +21,15 @@ let currentType = 'income';
 let currentCurrency = localStorage.getItem('currency') || 'R$';
 
 
-const todayDate = document.getElementById('today-date');
-if (todayDate) {
-    
-    if(currentCurrency=== 'R$'){
-        todayDate.textContent = new Date().toLocaleDateString('pt-Br', {
+function updateTodayDate() {
+    const todayDate = document.getElementById('today-date');
+    if (!todayDate) return;
+    const locale = currentCurrency === 'R$' ? 'pt-BR' : 'en-US';
+    todayDate.textContent = new Date().toLocaleDateString(locale, {
         weekday: 'long',
         month: 'long',
         day: 'numeric'
-        });       
-    } else{
-            todayDate.textContent = new Date().toLocaleDateString('en-Us', {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric'
-        });
-    }
+    });
 }
 
 
@@ -60,6 +53,7 @@ buttonReais.addEventListener('click', function(){
     rateDisplay.textContent = `1 BRL = ${exchangeRate.toFixed(4)} USD`;
     renderTransactions();
     updateSummaryAndChart();
+    updateTodayDate()
 });
 
 buttonDollar.addEventListener('click', function(){
@@ -70,6 +64,7 @@ buttonDollar.addEventListener('click', function(){
     rateDisplay.textContent = `1 BRL = ${exchangeRate.toFixed(4)} USD`;
     renderTransactions();
     updateSummaryAndChart();
+    updateTodayDate()
 });
 
 sortSelect.addEventListener('change', function() {
