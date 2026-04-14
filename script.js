@@ -127,7 +127,7 @@ function renderTransactions() {
         const sign = sorted[i].type == 'income' ? '+' : '-';
         
         const date = new Date(sorted[i].date);
-        const dateFormatted = date.toLocaleDateString('pt-Br', { 
+        const dateFormatted = date.toLocaleDateString('pt-BR', { 
         month: 'short', 
         day: 'numeric' 
         });
@@ -250,7 +250,7 @@ function exportToCSV() {
         const description = t.description
         const amount = getDisplayAmount(t.amount)
         const type = t.type
-        const date = new Date(t.date).toLocaleDateString('pt-Br', { month: 'short',
+        const date = new Date(t.date).toLocaleDateString('pt-BR', { month: 'short',
             day: 'numeric',
             year: 'numeric'
         });
@@ -261,7 +261,7 @@ function exportToCSV() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a');
     a.href = url;
-    a.download = `budgetpro-transactions-${new Date().toLocaleDateString('pt-Br')}.csv`;
+    a.download = `budgetpro-transactions-${new Date().toLocaleDateString('pt-BR')}.csv`;
     a.click()
     URL.revokeObjectURL(url);
 }
