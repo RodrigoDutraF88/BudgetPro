@@ -1,8 +1,8 @@
-# BudgetPro
+# 📊BudgetPro
 
 >  [Português](#português) | [English](#english)
 
----
+
 
 ## Português
 
@@ -56,7 +56,14 @@ budgetpro/
 ├── script.js            -> lógica da aplicação
 └── README.md                 
 ```
----
+
+
+## O que aprendi 
+
+Este projeto foi construído como meio de aprendizado e me ajudou muito a revisar, praticar, aprender e relembrar conceitos ultilizados, como: Normalize.css, metodologia BEM, :root, Chart.js, Blob, Date.now() (Obs:Não sabia que gerava número de milissegundos desde 1º de janeiro de 1970, achei muito interessante e usei esse número como id único para cada transação), !important no css, fetch() e APIs, sort(), .filter(), .splice(), async/await, push(), appendChild(), @import, CSS.grid.
+
+No geral foi um bom meio de praticar e testar minhas habilidades em javaScript, CSS e HTML.
+
 
 ## English
 
@@ -98,15 +105,6 @@ budgetpro/
 └── README.md            
 ```
 
----
-
-## O que aprendi 
-
-Este projeto foi construído como meio de aprendizado e me ajudou muito a revisar, praticar, aprender e relembrar conceitos ultilizados, como: Normalize.css, metodologia BEM, :root, Chart.js, Blob, Date.now() (Obs:Não sabia que gerava número de milissegundos desde 1º de janeiro de 1970, achei muito interessante e usei esse número como id único para cada transação), !important no css, fetch() e APIs, sort(), .filter(), .splice(), async/await, push(), appendChild(), @import, CSS.grid.
-
-No geral foi um bom meio de praticar e testar minhas habilidades em javaScript, CSS e HTML.
-
-
 
 ## What I Learned
 
@@ -116,13 +114,13 @@ Overall this was a great way to practice and test my skills in JavaScript, CSS, 
 (also my english skills while writing this read.me)
 
 
----
+
 
 ###  Licença / License
 
 MIT —> sinta-se livre para usar, modificar e distribuir.
 MIT —> feel free to use, modify, and distribute.
 
----
+
 
 Made by/Feito por [RodrigoDutraF88](https://github.com/RodrigoDutraF88)
